@@ -1,0 +1,34 @@
+buildscript {
+    ext.kotlinVersion = '1.0.6'
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+apply plugin: 'kotlin'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+    compile "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlinVersion"
+
+    compile 'com.beust:jcommander:1.48'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.nhaarman:mockito-kotlin:1.0.1'
+    testCompile 'org.jetbrains.spek:spek-api:1.1.0-beta2'
+    testCompile 'org.jetbrains.spek:spek-junit-platform-engine:1.1.0-beta2'
+    testCompile 'org.jetbrains.kotlin:kotlin-test:1.0.5-3'
+    testCompile 'org.junit.platform:junit-platform-runner:1.0.0-M3'
+    testCompile 'org.mockito:mockito-core:2.3.7'
+    testCompile 'com.github.jvm-redux.jvm-redux-api:specs:1.2.0'
+}
