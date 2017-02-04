@@ -11,11 +11,9 @@ class Formatter(private val parser: Parser) {
     }
 
     private fun applyRules(node: ASTNode, rules: Array<Rule>): ASTNode {
-        rules.forEach { rule -> rule.visit(node) }
-        return node.apply {
-            getChildren(null)
-                .forEach { child -> applyRules(child, rules) }
-        }
+        rules.fold(node) { node, rule -> rule.visit(node) }
+        node.getChildren(null).forEach { child -> applyRules(child, rules) }
+        return node
     }
 
 }

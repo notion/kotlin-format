@@ -4,6 +4,6 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 interface Rule {
 
-    fun visit(node: ASTNode)
+    fun visit(node: ASTNode): ASTNode
 
 }

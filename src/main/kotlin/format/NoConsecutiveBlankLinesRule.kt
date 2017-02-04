@@ -4,17 +4,16 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.PsiWhiteSpace
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 
-class IndentationRule : Rule {
-
-    private val SOFT_TAB = " ".repeat(4)
+class NoConsecutiveBlankLinesRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
         if (node is PsiWhiteSpace) {
-            val formatted = (node as ASTNode).text
-                .replace("\t", SOFT_TAB)
-
-            return (node as LeafPsiElement).replaceWithText(formatted)
+            val lines = node.getText().split("\n")
+            if (lines.size > 3) {
+                return (node as LeafPsiElement).replaceWithText("${lines.first()}\n\n${lines.last()}")
+            }
         }
         return node
     }
+
 }

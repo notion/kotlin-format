@@ -6,8 +6,9 @@ import java.io.File
 
 object Main {
 
-    private val RULES = arrayOf<Rule>(
-        IndentationRule()
+    private val RULES = arrayOf(
+        IndentationRule(),
+        NoConsecutiveBlankLinesRule()
     )
 
     private val formatter = Formatter(Parser())
