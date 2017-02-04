@@ -35,3 +35,15 @@ dependencies {
     testCompile 'org.junit.platform:junit-platform-runner:1.0.0-M3'
     testCompile 'org.mockito:mockito-core:2.3.7'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'format.Main'
+    }
+    
+    // This line of code recursively collects and copies all of a project's files
+    // and adds them to the JAR itself. One can extend this task, to skip certain
+    // files or particular types at will
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
