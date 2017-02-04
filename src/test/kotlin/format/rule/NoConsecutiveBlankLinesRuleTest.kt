@@ -1,5 +1,8 @@
 package format.rule
 
+import format.rule.internal.Inputs
+import format.rule.internal.RuleTest
+import format.rule.internal.RuleTestCase
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 
@@ -7,7 +10,7 @@ import org.junit.runner.RunWith
 class NoConsecutiveBlankLinesRuleTest : RuleTest(
     NoConsecutiveBlankLinesRule(),
     arrayOf(
-        Case(
+        RuleTestCase(
             "should not contain consecutive blank lines",
             """
             package main

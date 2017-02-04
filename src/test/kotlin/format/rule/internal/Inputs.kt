@@ -1,4 +1,4 @@
-package format.rule
+package format.rule.internal
 
 object Inputs {
 

@@ -1,4 +1,4 @@
-package format.rule
+package format.rule.internal
 
 import format.Formatter
 import format.Parser
@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 @RunWith(JUnitPlatform::class)
 abstract class RuleTest(
     val rule: Rule,
-    val cases: Array<Case>) : Spek({
+    val cases: Array<RuleTestCase>) : Spek({
 
     given("application of the rule") {
         cases.forEach { case ->
