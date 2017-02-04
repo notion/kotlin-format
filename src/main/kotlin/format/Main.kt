@@ -2,6 +2,8 @@ package format
 
 import com.beust.jcommander.JCommander
 import com.beust.jcommander.Parameter
+import format.rule.IndentationRule
+import format.rule.NoConsecutiveBlankLinesRule
 import java.io.File
 
 object Main {

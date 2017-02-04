@@ -16,6 +16,10 @@ repositories {
     jcenter()
 }
 
+sourceSets {
+    test.java.srcDirs += 'src/test/kotlin'
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
@@ -30,5 +34,4 @@ dependencies {
     testCompile 'org.jetbrains.kotlin:kotlin-test:1.0.5-3'
     testCompile 'org.junit.platform:junit-platform-runner:1.0.0-M3'
     testCompile 'org.mockito:mockito-core:2.3.7'
-    testCompile 'com.github.jvm-redux.jvm-redux-api:specs:1.2.0'
 }
