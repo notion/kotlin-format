@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 @RunWith(JUnitPlatform::class)
 abstract class RuleTest(
     val rule: Rule,
-    val cases: Array<RuleTestCase>) : Spek({
+    vararg val cases: RuleTestCase) : Spek({
 
     given("application of the rule") {
         cases.forEach { case ->

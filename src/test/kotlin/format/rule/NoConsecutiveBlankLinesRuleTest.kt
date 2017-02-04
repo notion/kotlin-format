@@ -9,10 +9,9 @@ import org.junit.runner.RunWith
 @RunWith(JUnitPlatform::class)
 class NoConsecutiveBlankLinesRuleTest : RuleTest(
     NoConsecutiveBlankLinesRule(),
-    arrayOf(
-        RuleTestCase(
-            "should not contain consecutive blank lines",
-            """
+    RuleTestCase(
+        "should not contain consecutive blank lines",
+        """
             package main
 
 
@@ -20,7 +19,6 @@ class NoConsecutiveBlankLinesRuleTest : RuleTest(
                 println("Hello, World!")
             }
             """.trimIndent(),
-            Inputs.HELLO_WORLD
-        )
+        Inputs.HELLO_WORLD
     )
 )
