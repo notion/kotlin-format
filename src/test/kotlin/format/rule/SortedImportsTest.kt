@@ -5,7 +5,7 @@ import format.rule.internal.RuleTestCase
 import format.rule.internal.loadResource
 
 class SortedImportsTest : RuleTest(
-		listOf(ImportSortingRule()),
+		listOf(SortedImportsRule()),
 		RuleTestCase(
 				"must be sorted alphabetically",
 				loadResource("format/rule/sortedImports/Case1"),

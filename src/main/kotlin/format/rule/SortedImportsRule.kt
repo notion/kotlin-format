@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes
 
-class ImportSortingRule : Rule {
+class SortedImportsRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
         if (node.elementType == KtStubElementTypes.IMPORT_LIST) {
