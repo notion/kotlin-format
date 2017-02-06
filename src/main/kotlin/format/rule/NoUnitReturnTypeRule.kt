@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes
 class NoUnitReturnTypeRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
-        if (node.elementType   ==   KtStubElementTypes.TYPE_REFERENCE   &&   node.text.contentEquals("Unit")) {
+        if (node.elementType == KtStubElementTypes.TYPE_REFERENCE && node.text.contentEquals("Unit")) {
         }
         return node
     }
