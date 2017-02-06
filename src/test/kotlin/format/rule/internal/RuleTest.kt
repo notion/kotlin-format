@@ -30,7 +30,7 @@ abstract class RuleTest(
 
         it("should fold other rules") {
             val formatted = formatter.format(
-                Inputs.HELLO_WORLD,
+                loadResource("format/HelloWorld"),
                 rules + object : Rule {
                     override fun visit(node: ASTNode): ASTNode {
                         if (node is CompositeElement) {

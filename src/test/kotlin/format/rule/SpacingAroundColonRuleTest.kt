@@ -1,36 +1,24 @@
 package format.rule
 
-import format.rule.internal.Inputs
 import format.rule.internal.RuleTest
 import format.rule.internal.RuleTestCase
+import format.rule.internal.loadResource
 
 class SpacingAroundColonRuleTest : RuleTest(
-    listOf(SpacingAroundColonRule()),
-    RuleTestCase(
-        "should contain space after identifier",
-        """
-        interface Foo<out T: Any> : Bar {
-            fun foo(a : Int) : T
-        }
-        """.trimIndent(),
-        Inputs.SPACING_AROUND_COLON
-    ),
-    RuleTestCase(
-        "should contain space after identifier colon",
-        """
-        interface Foo<out T : Any> : Bar {
-            fun foo(a:Int):T
-        }
-        """.trimIndent(),
-        Inputs.SPACING_AROUND_COLON
-    ),
-    RuleTestCase(
-        "should not contain space before parameter colon",
-        """
-        interface Foo<out T : Any> : Bar {
-            fun foo(a : Int) : T
-        }
-        """.trimIndent(),
-        Inputs.SPACING_AROUND_COLON
-    )
+		listOf(SpacingAroundColonRule()),
+		RuleTestCase(
+				"should contain space after identifier",
+				loadResource("format/rule/spacingAroundColon/Case1"),
+				loadResource("format/rule/spacingAroundColon/Expected")
+		),
+		RuleTestCase(
+				"should contain space after identifier colon",
+				loadResource("format/rule/spacingAroundColon/Case2"),
+				loadResource("format/rule/spacingAroundColon/Expected")
+		),
+		RuleTestCase(
+				"should not contain space before parameter colon",
+				loadResource("format/rule/spacingAroundColon/Case3"),
+				loadResource("format/rule/spacingAroundColon/Expected")
+		)
 )

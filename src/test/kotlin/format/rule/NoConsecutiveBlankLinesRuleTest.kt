@@ -1,21 +1,14 @@
 package format.rule
 
-import format.rule.internal.Inputs
 import format.rule.internal.RuleTest
 import format.rule.internal.RuleTestCase
+import format.rule.internal.loadResource
 
 class NoConsecutiveBlankLinesRuleTest : RuleTest(
     listOf(NoConsecutiveBlankLinesRule()),
     RuleTestCase(
         "should not contain consecutive blank lines",
-        """
-            package main
-
-
-            fun main(args: Array<String>) {
-                println("Hello, World!")
-            }
-            """.trimIndent(),
-        Inputs.HELLO_WORLD
+        loadResource("format/rule/noConsecutiveBlankLines/Case1"),
+        loadResource("format/rule/noConsecutiveBlankLines/Expected")
     )
 )

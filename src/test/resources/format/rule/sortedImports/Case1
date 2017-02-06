@@ -1,0 +1,8 @@
+package format.rule.sortedImports
+
+import java.util.Date
+import java.util.HashMap
+import java.util.ArrayList
+
+object Main {
+}
