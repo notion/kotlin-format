@@ -31,13 +31,13 @@ object Main {
     private fun formatFile(file: File, options: Options) {
         val original = file.readText()
         val formatted = formatter.format(original, Rule.STANDARD_RULES)
-        if (original != formatted) {
-            if (options.write == true) {
+        if (options.write == true) {
+            if (original != formatted) {
                 file.writeText(formatted)
             }
-            else {
-                println(formatted)
-            }
+        }
+        else {
+            println(formatted)
         }
     }
 
