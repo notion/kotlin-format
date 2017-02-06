@@ -29,22 +29,30 @@ object Main {
     }
 
     private fun formatFile(file: File, options: Options) {
-        val formatted = formatter.format(file.readText(), Rule.STANDARD_RULES)
-        if (options.write == true) file.writeText(formatted) else println(formatted)
+        val original = file.readText()
+        val formatted = formatter.format(original, Rule.STANDARD_RULES)
+        if (original != formatted) {
+            if (options.write == true) {
+                file.writeText(formatted)
+            }
+            else {
+                println(formatted)
+            }
+        }
     }
 
     private fun getFiles(paths: List<String>) = getFiles(paths.map(::File).toTypedArray())
 
     private fun getFiles(files: Array<File>): List<File> {
         return files
-            .flatMap { file ->
-                when {
-                    file.isDirectory -> getFiles(file.listFiles { file ->
-                        file.isDirectory || file.name.endsWith(".kt") || file.name.endsWith(".kts")
-                    })
-                    else -> listOf(file)
+                .flatMap { file ->
+                    when {
+                        file.isDirectory -> getFiles(file.listFiles { file ->
+                            file.isDirectory || file.name.endsWith(".kt") || file.name.endsWith(".kts")
+                        })
+                        else -> listOf(file)
+                    }
                 }
-            }
     }
 
     private class Options {
