@@ -11,7 +11,7 @@ class NoConsecutiveBlankLinesRule : Rule {
         if (node is PsiWhiteSpace) {
             val lines = node.getText().split("\n")
             if (lines.size > 3) {
-                return (node as LeafPsiElement).replaceWithText("${lines.first()}\n\n${lines.last()}")
+                (node as LeafPsiElement).replaceWithText("${lines.first()}\n\n${lines.last()}")
             }
         }
         return node

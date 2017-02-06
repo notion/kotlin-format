@@ -2,16 +2,9 @@ package format
 
 import com.beust.jcommander.JCommander
 import com.beust.jcommander.Parameter
-import format.rule.IndentationRule
-import format.rule.NoConsecutiveBlankLinesRule
 import java.io.File
 
 object Main {
-
-    private val RULES = arrayOf(
-        IndentationRule(),
-        NoConsecutiveBlankLinesRule()
-    )
 
     private val formatter = Formatter(Parser())
 
@@ -36,7 +29,7 @@ object Main {
     }
 
     private fun formatFile(file: File, options: Options) {
-        val formatted = formatter.format(file.readText(), RULES)
+        val formatted = formatter.format(file.readText(), Rule.STANDARD_RULES)
         if (options.write == true) file.writeText(formatted) else println(formatted)
     }
 

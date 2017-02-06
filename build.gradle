@@ -40,10 +40,23 @@ jar {
     manifest {
         attributes 'Main-Class': 'format.Main'
     }
-    
-    // This line of code recursively collects and copies all of a project's files
-    // and adds them to the JAR itself. One can extend this task, to skip certain
-    // files or particular types at will
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
+task createBin {
+    doLast {
+        mkdir("$buildDir/bin/")
+
+        def jar = new File("$buildDir/libs", "kotlin-format.jar")
+        def bin = new File("$buildDir/bin", "kotlin-format")
+        def header = '#!/bin/sh\n\nexec java -Xmx512m -jar "$0" "$@"\n\n'
+
+        bin.delete()
+        bin.createNewFile()
+        bin.append(header.bytes)
+        bin.append(jar.bytes)
+        bin.setExecutable(true, false)
+    }
+}
+
+jar.dependsOn createBin

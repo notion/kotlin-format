@@ -10,4 +10,16 @@ object Inputs {
         }
         """.trimIndent()
 
+    val SPACING_AROUND_COLON = """
+        interface Foo<out T : Any> : Bar {
+            fun foo(a: Int): T
+        }
+        """.trimIndent()
+
+    val OMIT_UNIT = """
+        fun foo() {
+
+        }
+        """.trimIndent()
+
 }
