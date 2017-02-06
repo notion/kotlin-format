@@ -1,6 +1,6 @@
 package format
 
-import format.rule.IndentationRule
+import format.rule.NoTabIndentationRule
 import format.rule.NoConsecutiveBlankLinesRule
 import format.rule.NoUnitReturnTypeRule
 import format.rule.SortedImportsRule
@@ -15,7 +15,7 @@ interface Rule {
 	companion object {
 
 		val STANDARD_RULES = listOf(
-				IndentationRule(),
+				NoTabIndentationRule(),
 				NoConsecutiveBlankLinesRule(),
 				NoUnitReturnTypeRule(),
 				SortedImportsRule(),

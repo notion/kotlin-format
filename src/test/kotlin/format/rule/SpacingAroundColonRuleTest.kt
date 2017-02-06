@@ -7,7 +7,7 @@ import format.rule.internal.loadResource
 class SpacingAroundColonRuleTest : RuleTest(
 		listOf(SpacingAroundColonRule()),
 		RuleTestCase(
-				"should contain space after identifier",
+				"should contain space before and after type references",
 				loadResource("format/rule/spacingAroundColon/Case1"),
 				loadResource("format/rule/spacingAroundColon/Expected")
 		),

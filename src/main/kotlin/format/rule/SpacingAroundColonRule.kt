@@ -5,24 +5,23 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.PsiWhiteSpace
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
-import org.jetbrains.kotlin.psi.KtClassOrObject
-import org.jetbrains.kotlin.psi.KtFunction
-import org.jetbrains.kotlin.psi.KtParameter
+import org.jetbrains.kotlin.com.intellij.psi.util.PsiTreeUtil
+import org.jetbrains.kotlin.psi.KtTypeParameter
 
 class SpacingAroundColonRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
         if (node is LeafPsiElement && node.textMatches(":") /*&& !node.isPartOfString()*/) {
-            val prevSibling = node.prevSibling
-            val nextSibling = node.nextSibling
+            val prevLeaf = PsiTreeUtil.prevLeaf(node) as LeafPsiElement
+            val nextLeaf = PsiTreeUtil.nextLeaf(node) as LeafPsiElement
             val parent = node.parent
 
-            val extraSpacingBefore = prevSibling is PsiWhiteSpace && (parent is KtParameter || parent is KtFunction)
-            val missingSpacingBefore = prevSibling !is PsiWhiteSpace && parent is KtClassOrObject
-            val missingSpacingAfter = nextSibling !is PsiWhiteSpace
+            val extraSpacingBefore = prevLeaf is PsiWhiteSpace
+            val missingSpacingBefore = prevLeaf !is PsiWhiteSpace && parent is KtTypeParameter
+            val missingSpacingAfter = nextLeaf !is PsiWhiteSpace && parent is KtTypeParameter
 
             if (extraSpacingBefore) {
-                prevSibling.delete()
+                prevLeaf?.delete()
             }
             if (missingSpacingBefore) {
                 node.rawInsertBeforeMe(PsiWhiteSpaceImpl(" "))
