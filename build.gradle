@@ -59,4 +59,4 @@ task createBin {
     }
 }
 
-jar.dependsOn createBin
+build.dependsOn createBin
