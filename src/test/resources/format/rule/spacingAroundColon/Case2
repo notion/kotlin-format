@@ -1,12 +1,12 @@
-interface Foo<out T: Any>: Bar {
+abstract class Foo<out T :Any>(val t: T) :Bar {
 
-    fun foo(a: Int): T
+    abstract fun foo(a:Int):T
 
-    val foo = object: Comparable<Foo> {
+    val foo = object :Comparable<Foo> {
 
     }
 
-    companion object: Comparable<Foo> {
+    companion object :Comparable<Foo> {
 
     }
 

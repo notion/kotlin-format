@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.jetbrains.kotlin.com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.lexer.KtTokens.IDENTIFIER
+import org.jetbrains.kotlin.psi.KtPrimaryConstructor
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes.OBJECT_DECLARATION
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes.TYPE_PARAMETER_LIST
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes.VALUE_PARAMETER
@@ -22,14 +23,13 @@ class SpacingAroundColonRule : Rule {
             val prevPrevParent = (PsiTreeUtil.prevLeaf(prevLeaf) as LeafPsiElement).treeParent
 
             val extraSpacingBefore = prevLeaf is PsiWhiteSpace
-                    && (prevPrevParent.elementType == VALUE_PARAMETER_LIST
-                    || prevPrevParent.elementType == VALUE_PARAMETER)
+                    && node.prevSibling.prevSibling !is KtPrimaryConstructor
+                    && (prevPrevParent.elementType == VALUE_PARAMETER_LIST || prevPrevParent.elementType == VALUE_PARAMETER)
 
             val missingSpacingBefore = prevLeaf.treeParent.elementType == TYPE_PARAMETER_LIST
-                    || (prevLeaf !is PsiWhiteSpace
-                    && prevLeaf.treeParent.elementType == OBJECT_DECLARATION)
-                    || (prevLeaf.elementType == IDENTIFIER
-                    && node.treeParent.elementType != VALUE_PARAMETER)
+                    || node.prevSibling is KtPrimaryConstructor
+                    || (prevLeaf !is PsiWhiteSpace && prevLeaf.treeParent.elementType == OBJECT_DECLARATION)
+                    || (prevLeaf.elementType == IDENTIFIER && node.treeParent.elementType != VALUE_PARAMETER)
 
             val missingSpacingAfter = nextLeaf.elementType == IDENTIFIER
 

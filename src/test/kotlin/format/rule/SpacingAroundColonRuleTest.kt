@@ -8,12 +8,12 @@ class SpacingAroundColonRuleTest : RuleTest(
         listOf(SpacingAroundColonRule()),
         RuleTestCase(
                 "should contain space before colon",
-                loadResource("format/rule/spacingAroundColon/Case1"),
+                loadResource("format/rule/spacingAroundColon/Case2"),
                 loadResource("format/rule/spacingAroundColon/Expected")
         ),
         RuleTestCase(
                 "should contain space after colon",
-                loadResource("format/rule/spacingAroundColon/Case2"),
+                loadResource("format/rule/spacingAroundColon/Case1"),
                 loadResource("format/rule/spacingAroundColon/Expected")
         ),
         RuleTestCase(

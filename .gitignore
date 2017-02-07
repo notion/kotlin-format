@@ -1,6 +1,8 @@
 
 # Created by https://www.gitignore.io/api/android,intellij,eclipse,osx
 
+Scratch.kt
+
 ### Android ###
 # Built application files
 *.apk
