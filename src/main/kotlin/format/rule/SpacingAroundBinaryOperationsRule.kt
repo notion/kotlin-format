@@ -8,13 +8,15 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.jetbrains.kotlin.com.intellij.psi.tree.TokenSet
 import org.jetbrains.kotlin.com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.lexer.KtTokens
-import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes
+import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes.TYPE_ARGUMENT_LIST
+import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes.TYPE_PARAMETER_LIST
 
 class SpacingAroundBinaryOperationsRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
         if (node is LeafPsiElement
-                && node.treeParent.elementType != KtStubElementTypes.TYPE_PARAMETER_LIST
+                && node.treeParent.elementType != TYPE_ARGUMENT_LIST
+                && node.treeParent.elementType != TYPE_PARAMETER_LIST
                 && OPERATIONS.contains(node.elementType)) {
 
             val whitespaceBefore = PsiTreeUtil.prevLeaf(node) is PsiWhiteSpace

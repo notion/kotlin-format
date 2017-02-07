@@ -1,7 +1,7 @@
 package format
 
-import format.rule.NoTabIndentationRule
 import format.rule.NoConsecutiveBlankLinesRule
+import format.rule.NoTabIndentationRule
 import format.rule.NoUnitReturnTypeRule
 import format.rule.SortedImportsRule
 import format.rule.SpacingAroundBinaryOperationsRule
@@ -10,19 +10,19 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 interface Rule {
 
-	fun visit(node: ASTNode): ASTNode
+    fun visit(node: ASTNode): ASTNode
 
-	companion object {
+    companion object {
 
-		val STANDARD_RULES = listOf(
-				NoTabIndentationRule(),
-				NoConsecutiveBlankLinesRule(),
-				NoUnitReturnTypeRule(),
-				SortedImportsRule(),
-				SpacingAroundBinaryOperationsRule(),
-				SpacingAroundColonRule()
-		)
+        val STANDARD_RULES = listOf(
+                NoTabIndentationRule(),
+                NoConsecutiveBlankLinesRule(),
+                NoUnitReturnTypeRule(),
+                SortedImportsRule(),
+                SpacingAroundBinaryOperationsRule(),
+                SpacingAroundColonRule()
+        )
 
-	}
+    }
 
 }

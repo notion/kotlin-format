@@ -5,10 +5,10 @@ import format.rule.internal.RuleTestCase
 import format.rule.internal.loadResource
 
 class NoTabIndentationRuleTest : RuleTest(
-		listOf(NoTabIndentationRule()),
-		RuleTestCase(
-				"must indent using four spaces",
-				loadResource("format/rule/noTabIndentation/Case1"),
-				loadResource("format/rule/noTabIndentation/Expected")
-		)
+        listOf(NoTabIndentationRule()),
+        RuleTestCase(
+                "must indent using four spaces",
+                loadResource("format/rule/noTabIndentation/Case1"),
+                loadResource("format/rule/noTabIndentation/Expected")
+        )
 )

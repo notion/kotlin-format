@@ -1,3 +1,7 @@
-class Foo <T> (val value: T) {
+abstract class Foo<T>(val value: T, val elements: List<T>) {
+
     fun <R> map(f: (T)->R)=f(value)
+
+    abstract fun addAll(elements: List<T>)
+
 }
