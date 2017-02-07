@@ -1,3 +1,13 @@
 interface Foo<out T : Any> : Bar {
-    fun foo(a : Int) : T // TODO: implement this
+
+    fun foo(a : Int) : T
+
+    val foo = object : Comparable<Foo> {
+
+    }
+
+    companion object : Comparable<Foo> {
+
+    }
+
 }

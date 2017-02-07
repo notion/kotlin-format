@@ -12,17 +12,17 @@ class SortedImportsRule : Rule {
             val children = node.getChildren(null)
             if (children.isNotEmpty()) {
                 val sortedImports = children
-                    .filter { it.elementType == KtStubElementTypes.IMPORT_DIRECTIVE }
-                    .sortedBy { it.text }
+                        .filter { it.elementType == KtStubElementTypes.IMPORT_DIRECTIVE }
+                        .sortedBy { it.text }
 
-                node.removeRange(node.firstChildNode, node.lastChildNode)
+                node.removeRange(node.firstChildNode, node.lastChildNode.treeNext)
 
-                sortedImports.forEach {
-                    node.addChild(it, null)
-                    node.addChild(PsiWhiteSpaceImpl("\n"), null)
+                sortedImports.forEachIndexed { i, astNode ->
+                    if (i > 0) {
+                        node.addChild(PsiWhiteSpaceImpl("\n"), null)
+                    }
+                    node.addChild(astNode, null)
                 }
-
-                node.removeChild(node.lastChildNode)
             }
         }
         return node
