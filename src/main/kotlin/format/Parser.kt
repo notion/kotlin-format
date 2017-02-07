@@ -32,21 +32,21 @@ class Parser {
 
     private fun createPsiFileFactory(): PsiFileFactory {
         val environment = KotlinCoreEnvironment.createForProduction(
-            Disposable { },
-            CompilerConfiguration(),
-            emptyList()
+                Disposable { },
+                CompilerConfiguration(),
+                emptyList()
         )
         val project = environment.project
 
         arrayOf(getArea(project), getArea(null))
-            .filterNot { it.hasExtensionPoint(EXTENSION_POINT) }
-            .forEach {
-                it.registerExtensionPoint(
-                    EXTENSION_POINT,
-                    EXTENSION_CLASS_NAME,
-                    ExtensionPoint.Kind.INTERFACE
-                )
-            }
+                .filterNot { it.hasExtensionPoint(EXTENSION_POINT) }
+                .forEach {
+                    it.registerExtensionPoint(
+                            EXTENSION_POINT,
+                            EXTENSION_CLASS_NAME,
+                            ExtensionPoint.Kind.INTERFACE
+                    )
+                }
 
         (project as MockProject).registerService(PomModel::class.java, ParserPomModel())
 
@@ -62,11 +62,12 @@ class Parser {
         override fun <T : PomModelAspect?> getModelAspect(aspect: Class<T>): T? {
             if (TreeAspect::class.java.isAssignableFrom(aspect)) {
                 val constructor = ReflectionFactory
-                    .getReflectionFactory()
-                    .newConstructorForSerialization(
-                        aspect,
-                        Any::class.java.getDeclaredConstructor(*arrayOfNulls<Class<*>>(0))
-                    )
+                        .getReflectionFactory()
+                        .newConstructorForSerialization(
+                                aspect,
+                                Any::class.java.getDeclaredConstructor(*arrayOfNulls<Class<*>>(0))
+                        )
+                @Suppress("UNCHECKED_CAST")
                 return constructor.newInstance(*emptyArray()) as T
             }
             return null

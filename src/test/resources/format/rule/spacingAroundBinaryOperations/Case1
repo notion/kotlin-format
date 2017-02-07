@@ -1,1 +1,3 @@
-val a= 1
+class Foo <T> (val value: T) {
+    fun <R> map(f: (T)-> R)= f(value)
+}
