@@ -62,10 +62,10 @@ internal class Parser {
                         .getReflectionFactory()
                         .newConstructorForSerialization(
                                 aspect,
-                                Any::class.java.getDeclaredConstructor( * arrayOfNulls<Class< * >>(0))
+                                Any::class.java.getDeclaredConstructor(*arrayOfNulls<Class<*>>(0))
                         )
                 @Suppress("UNCHECKED_CAST")
-                return constructor.newInstance( * emptyArray()) as T
+                return constructor.newInstance(*emptyArray()) as T
             }
             return null
         }
