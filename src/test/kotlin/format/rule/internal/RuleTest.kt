@@ -1,7 +1,7 @@
 package format.rule.internal
 
-import format.Formatter
-import format.Parser
+import format.internal.Formatter
+import format.internal.Parser
 import format.Rule
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.CompositeElement

@@ -5,9 +5,10 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.PsiWhiteSpace
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
-import org.jetbrains.kotlin.com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.lexer.KtTokens.IDENTIFIER
 import org.jetbrains.kotlin.psi.KtPrimaryConstructor
+import org.jetbrains.kotlin.psi.psiUtil.nextLeaf
+import org.jetbrains.kotlin.psi.psiUtil.prevLeaf
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes.OBJECT_DECLARATION
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes.TYPE_PARAMETER_LIST
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes.VALUE_PARAMETER
@@ -17,10 +18,10 @@ class SpacingAroundColonRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
         if (node is LeafPsiElement && node.textMatches(":")) {
-            val prevLeaf = PsiTreeUtil.prevLeaf(node) as LeafPsiElement
-            val nextLeaf = PsiTreeUtil.nextLeaf(node) as LeafPsiElement
+            val prevLeaf = node.prevLeaf() as LeafPsiElement
+            val nextLeaf = node.nextLeaf() as LeafPsiElement
 
-            val prevPrevParent = (PsiTreeUtil.prevLeaf(prevLeaf) as LeafPsiElement).treeParent
+            val prevPrevParent = (prevLeaf.prevLeaf() as LeafPsiElement).treeParent
 
             val extraSpacingBefore = prevLeaf is PsiWhiteSpace
                     && node.prevSibling.prevSibling !is KtPrimaryConstructor

@@ -1,8 +1,9 @@
-package format
+package format.internal
 
+import format.Rule
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
-class Formatter(private val parser: Parser) {
+internal class Formatter(private val parser: Parser) {
 
     fun format(input: String, rules: List<Rule>): String {
         val node = parser.parse(input)

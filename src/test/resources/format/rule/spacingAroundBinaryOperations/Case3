@@ -1,4 +1,12 @@
 abstract class Foo<T>(val value: T, val elements: List<T>) {
+    val a=10
+    val b=a*2
+    val c=a+b
+    val d=c-getNum()
+
+    fun getNum()=10
+
+    val thing=getTheThing(*arrayOfNulls<Class<*>>(0))
 
     fun <R> map(f: (T)->R)=f(value)
 

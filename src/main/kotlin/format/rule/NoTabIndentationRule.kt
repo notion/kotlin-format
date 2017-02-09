@@ -7,15 +7,16 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 
 class NoTabIndentationRule : Rule {
 
-    private val SOFT_TAB = " ".repeat(4)
-
     override fun visit(node: ASTNode): ASTNode {
-        if (node is PsiWhiteSpace && node.textContains('\t')) {
-            val text = node.getText()
-                    .replace("\t", SOFT_TAB)
-
-            (node as LeafPsiElement).replaceWithText(text)
+        if (node is PsiWhiteSpace && node is LeafPsiElement && node.textContains('\t')) {
+            val formatted = node.getText().replace("\t", SOFT_TAB)
+            node.replaceWithText(formatted)
         }
         return node
     }
+
+    companion object {
+        private val SOFT_TAB = " ".repeat(4)
+    }
+
 }

@@ -1,4 +1,4 @@
-package format
+package format.internal
 
 import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
@@ -18,10 +18,7 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.idea.KotlinLanguage
 import sun.reflect.ReflectionFactory
 
-class Parser {
-
-    private val EXTENSION_POINT = "org.jetbrains.kotlin.com.intellij.treeCopyHandler"
-    private val EXTENSION_CLASS_NAME = TreeCopyHandler::class.java.name
+internal class Parser {
 
     private val psiFileFactory = createPsiFileFactory()
 
@@ -65,14 +62,19 @@ class Parser {
                         .getReflectionFactory()
                         .newConstructorForSerialization(
                                 aspect,
-                                Any::class.java.getDeclaredConstructor(*arrayOfNulls<Class<*>>(0))
+                                Any::class.java.getDeclaredConstructor( * arrayOfNulls<Class< * >>(0))
                         )
                 @Suppress("UNCHECKED_CAST")
-                return constructor.newInstance(*emptyArray()) as T
+                return constructor.newInstance( * emptyArray()) as T
             }
             return null
         }
 
+    }
+
+    companion object {
+        private val EXTENSION_POINT = "org.jetbrains.kotlin.com.intellij.treeCopyHandler"
+        private val EXTENSION_CLASS_NAME = TreeCopyHandler::class.java.name
     }
 
 }

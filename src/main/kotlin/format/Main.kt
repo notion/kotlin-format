@@ -2,6 +2,8 @@ package format
 
 import com.beust.jcommander.JCommander
 import com.beust.jcommander.Parameter
+import format.internal.Formatter
+import format.internal.Parser
 import java.io.File
 
 object Main {
