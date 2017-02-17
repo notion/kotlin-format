@@ -6,6 +6,7 @@ import format.rule.NoUnitReturnTypeRule
 import format.rule.SortedImportsRule
 import format.rule.SpacingAroundBinaryOperationsRule
 import format.rule.SpacingAroundColonRule
+import format.rule.SpacingAroundCurlyBracesRule
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 interface Rule {
@@ -20,7 +21,8 @@ interface Rule {
                 NoUnitReturnTypeRule(),
                 SortedImportsRule(),
                 SpacingAroundBinaryOperationsRule(),
-                SpacingAroundColonRule()
+                SpacingAroundColonRule(),
+                SpacingAroundCurlyBracesRule()
         )
 
     }
