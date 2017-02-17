@@ -2,6 +2,7 @@ package format
 
 import format.rule.NoConsecutiveBlankLinesRule
 import format.rule.NoTabIndentationRule
+import format.rule.NoTrailingSpacesRule
 import format.rule.NoUnitReturnTypeRule
 import format.rule.SortedImportsRule
 import format.rule.SpacingAroundBinaryOperationsRule
@@ -17,8 +18,9 @@ interface Rule {
     companion object {
 
         val STANDARD_RULES = listOf(
-                NoTabIndentationRule(),
                 NoConsecutiveBlankLinesRule(),
+                NoTabIndentationRule(),
+                NoTrailingSpacesRule(),
                 NoUnitReturnTypeRule(),
                 SortedImportsRule(),
                 SpacingAroundBinaryOperationsRule(),

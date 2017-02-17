@@ -10,13 +10,15 @@ class NoTrailingSpacesRule : Rule {
     override fun visit(node: ASTNode): ASTNode {
         if (node is PsiWhiteSpace && node is LeafPsiElement && node.textContains('\n')) {
             val lines = node.getText().split('\n')
-            val formattedLines = lines
+            val formattedText = lines
                     .mapIndexed { i: Int, line: String ->
                         if (i < lines.size - 1) line.trim() else line
                     }
                     .joinToString("\n")
 
-            node.replaceWithText(formattedLines)
+            if (formattedText != node.getText()) {
+                node.replaceWithText(formattedText)
+            }
         }
         return node
     }

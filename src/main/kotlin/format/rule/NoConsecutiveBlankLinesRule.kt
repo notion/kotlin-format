@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 class NoConsecutiveBlankLinesRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
-        if (node is PsiWhiteSpace && node is LeafPsiElement) {
+        if (node is PsiWhiteSpace && node is LeafPsiElement && node.textContains('\n')) {
             val lines = node.getText().split("\n")
             if (lines.size > 3) {
                 node.replaceWithText("${lines.first()}\n\n${lines.last()}")
