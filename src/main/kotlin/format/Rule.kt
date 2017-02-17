@@ -5,7 +5,7 @@ import format.rule.NoTabIndentationRule
 import format.rule.NoTrailingSpacesRule
 import format.rule.NoUnitReturnTypeRule
 import format.rule.SortedImportsRule
-import format.rule.SpacingAroundBinaryOperationsRule
+import format.rule.SpacingAroundOperatorsRule
 import format.rule.SpacingAroundColonRule
 import format.rule.SpacingAroundCurlyBracesRule
 import format.rule.SpacingAroundParensRule
@@ -23,7 +23,7 @@ interface Rule {
                 NoTrailingSpacesRule(),
                 NoUnitReturnTypeRule(),
                 SortedImportsRule(),
-                SpacingAroundBinaryOperationsRule(),
+                SpacingAroundOperatorsRule(),
                 SpacingAroundColonRule(),
                 SpacingAroundCurlyBracesRule(),
                 SpacingAroundParensRule()

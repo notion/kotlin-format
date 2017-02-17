@@ -16,23 +16,43 @@ import org.jetbrains.kotlin.psi.KtValueArgument
 import org.jetbrains.kotlin.psi.psiUtil.nextLeaf
 import org.jetbrains.kotlin.psi.psiUtil.prevLeaf
 
-class SpacingAroundBinaryOperationsRule : Rule {
+class SpacingAroundOperatorsRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
-        if (OPERATIONS.contains(node.elementType) && node is LeafPsiElement
+        if (OPERATORS.contains(node.elementType) && node is LeafPsiElement
                 && !node.isChildOfType(KtPrefixExpression::class)
-                && !node.isChildOfType(KtTypeParameterList::class)
                 && !node.isChildOfType(KtTypeArgumentList::class)
                 && !node.isChildOfType(KtValueArgument::class)
                 && !node.isChildOfType(KtImportDirective::class)) {
 
-            val missingSpaceBefore = node.prevLeaf(true) !is PsiWhiteSpace
-            val missingSpaceAfter = node.nextLeaf(true) !is PsiWhiteSpace
+            val prevLeaf = node.prevLeaf() as? LeafPsiElement
+            val nextLeaf = node.nextLeaf() as? LeafPsiElement
 
-            if (missingSpaceBefore) {
+            val isChildOfTypeParameterList = node.isChildOfType(KtTypeParameterList::class)
+
+            val extraSpaceBefore = prevLeaf is PsiWhiteSpace
+                    && isChildOfTypeParameterList
+
+            val extraSpaceAfter = nextLeaf is PsiWhiteSpace
+                    && isChildOfTypeParameterList
+
+            val missingSpaceBefore = prevLeaf !is PsiWhiteSpace
+                    && !isChildOfTypeParameterList
+
+            val missingSpaceAfter = nextLeaf !is PsiWhiteSpace
+                    && !isChildOfTypeParameterList
+
+            if (extraSpaceBefore) {
+                prevLeaf?.delete()
+            }
+            else if (missingSpaceBefore) {
                 node.rawInsertBeforeMe(PsiWhiteSpaceImpl(" "))
             }
-            if (missingSpaceAfter) {
+
+            if (extraSpaceAfter) {
+                nextLeaf?.delete()
+            }
+            else if (missingSpaceAfter) {
                 node.rawInsertAfterMe(PsiWhiteSpaceImpl(" "))
             }
         }
@@ -40,7 +60,7 @@ class SpacingAroundBinaryOperationsRule : Rule {
     }
 
     companion object {
-        private val OPERATIONS = TokenSet.create(
+        private val OPERATORS = TokenSet.create(
                 KtTokens.MUL,
                 KtTokens.PLUS,
                 KtTokens.MINUS,
