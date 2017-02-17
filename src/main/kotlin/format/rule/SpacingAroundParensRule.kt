@@ -22,11 +22,12 @@ class SpacingAroundParensRule : Rule {
             val prevLeaf = node.prevLeaf() as LeafPsiElement
             val nextLeaf = node.nextLeaf() as LeafPsiElement
 
-            val extraSpacingBefore = (isRightParen && prevLeaf is PsiWhiteSpace)
+            val extraSpacingBefore = (isRightParen && prevLeaf is PsiWhiteSpace && !prevLeaf.textContains('\n'))
                     || (isLeftParen && prevLeaf is PsiWhiteSpace && node.isChildOfType(KtParameterList::class))
 
             val extraSpacingAfter = isLeftParen
                     && nextLeaf is PsiWhiteSpace
+                    && !nextLeaf.textContains('\n')
 
             val missingSpacingBefore = isLeftParen
                     && prevLeaf !is PsiWhiteSpace

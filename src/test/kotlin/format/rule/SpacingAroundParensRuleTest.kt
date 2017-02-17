@@ -24,5 +24,18 @@ class SpacingAroundParensRuleTest : RuleTest(
                 "should not contain space before right paren",
                 "fun foo(a: Int ) { }",
                 "fun foo(a: Int) { }"
+        ),
+        RuleTestCase(
+                "should preserve newlines inside value parameter list",
+                """
+                fun foo(
+                        a: Int
+                    ) { }
+                """.trimIndent(),
+                """
+                fun foo(
+                        a: Int
+                    ) { }
+                """.trimIndent()
         )
 )
