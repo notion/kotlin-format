@@ -31,6 +31,11 @@ class SpacingAroundParensRuleTest : RuleTest(
                 "val a = 0.toInt()"
         ),
         RuleTestCase(
+                "should contain no spacing between two value argument lists",
+                "val a = getFun() ()",
+                "val a = getFun()()"
+        ),
+        RuleTestCase(
                 "should not contain space after left paren",
                 "fun foo( a: Int) { }",
                 "fun foo(a: Int) { }"
