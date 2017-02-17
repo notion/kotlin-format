@@ -16,8 +16,18 @@ class SpacingAroundParensRuleTest : RuleTest(
                 "fun foo() { }"
         ),
         RuleTestCase(
+                "should retain spacing before value parameter list",
+                "fun foo() { }",
+                "fun foo() { }"
+        ),
+        RuleTestCase(
                 "should contain no space before value argument list",
                 "val a = 0.toInt ()",
+                "val a = 0.toInt()"
+        ),
+        RuleTestCase(
+                "should retain spacing before value argument list",
+                "val a = 0.toInt()",
                 "val a = 0.toInt()"
         ),
         RuleTestCase(

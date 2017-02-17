@@ -38,15 +38,18 @@ class SpacingAroundParensRule : Rule {
                     && prevLeaf !is PsiWhiteSpace
                     && node.isChildOfType(KtBlockExpression::class)
                     && !node.isChildOfType(KtParenthesizedExpression::class)
+                    && !isChildOfParameterList
+                    && !isChildOfValueArgumentList
 
             if (extraSpacingBefore) {
                 prevLeaf.delete()
             }
+            else if (missingSpacingBefore) {
+                node.rawInsertBeforeMe(PsiWhiteSpaceImpl(" "))
+            }
+
             if (extraSpacingAfter) {
                 nextLeaf?.delete()
-            }
-            if (missingSpacingBefore) {
-                node.rawInsertBeforeMe(PsiWhiteSpaceImpl(" "))
             }
         }
         return node
