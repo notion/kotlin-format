@@ -59,4 +59,10 @@ task createBin {
     }
 }
 
+task install(type: Copy) {
+    from("$buildDir/bin/kotlin-format")
+    into('/usr/local/bin')
+}
+
 build.dependsOn createBin
+install.dependsOn build
