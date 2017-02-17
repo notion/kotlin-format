@@ -7,6 +7,7 @@ import format.rule.SortedImportsRule
 import format.rule.SpacingAroundBinaryOperationsRule
 import format.rule.SpacingAroundColonRule
 import format.rule.SpacingAroundCurlyBracesRule
+import format.rule.SpacingAroundParensRule
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 interface Rule {
@@ -22,7 +23,8 @@ interface Rule {
                 SortedImportsRule(),
                 SpacingAroundBinaryOperationsRule(),
                 SpacingAroundColonRule(),
-                SpacingAroundCurlyBracesRule()
+                SpacingAroundCurlyBracesRule(),
+                SpacingAroundParensRule()
         )
 
     }
