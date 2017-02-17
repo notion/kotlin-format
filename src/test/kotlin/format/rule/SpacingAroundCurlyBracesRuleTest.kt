@@ -16,6 +16,25 @@ class SpacingAroundCurlyBracesRuleTest : RuleTest(
                 "fun foo() { }"
         ),
         RuleTestCase(
+                "should contain no more than one space before curly brace",
+                "fun foo()  { }",
+                "fun foo() { }"
+        ),
+        RuleTestCase(
+                "should contain no non-space whitespace before curly brace",
+                "fun foo()\t{ }",
+                "fun foo() { }"
+        ),
+        RuleTestCase(
+                "should preserve newlines after left curly brace",
+                """
+                fun foo() {
+                }""".trimIndent(),
+                """
+                fun foo() {
+                }""".trimIndent()
+        ),
+        RuleTestCase(
                 "should preserve spaces around curly brace",
                 "fun foo() { }",
                 "fun foo() { }"

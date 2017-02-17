@@ -12,18 +12,38 @@ import org.jetbrains.kotlin.psi.psiUtil.prevLeaf
 class SpacingAroundCurlyBracesRule : Rule {
 
     override fun visit(node: ASTNode): ASTNode {
-        if (node is LeafPsiElement && (node.elementType == KtTokens.LBRACE || node.elementType == KtTokens.RBRACE)) {
+        val isLeftBrace = node.elementType == KtTokens.LBRACE
+        val isRightBrace = node.elementType == KtTokens.RBRACE
+
+        if ((isLeftBrace || isRightBrace) && node is LeafPsiElement) {
             val prevLeaf = node.prevLeaf() as? LeafPsiElement
             val nextLeaf = node.nextLeaf() as? LeafPsiElement
 
-            val missingSpacingBefore = prevLeaf != null && prevLeaf !is PsiWhiteSpace
-            val missingSpacingAfter = nextLeaf != null && nextLeaf !is PsiWhiteSpace
+            if (prevLeaf != null) {
+                if (prevLeaf !is PsiWhiteSpace) {
+                    node.rawInsertBeforeMe(PsiWhiteSpaceImpl(" "))
+                }
+                else if (isLeftBrace
+                        && prevLeaf is PsiWhiteSpace
+                        && !prevLeaf.textMatches(" ")) {
 
-            if (missingSpacingBefore) {
-                node.rawInsertBeforeMe(PsiWhiteSpaceImpl(" "))
+                    prevLeaf.delete()
+                    node.rawInsertBeforeMe(PsiWhiteSpaceImpl(" "))
+                }
             }
-            if (missingSpacingAfter) {
-                node.rawInsertAfterMe(PsiWhiteSpaceImpl(" "))
+
+            if (nextLeaf != null) {
+                if (nextLeaf !is PsiWhiteSpace) {
+                    node.rawInsertAfterMe(PsiWhiteSpaceImpl(" "))
+                }
+                else if (isRightBrace
+                        && nextLeaf is PsiWhiteSpace
+                        && !nextLeaf.textMatches(" ")
+                        && !nextLeaf.getText().startsWith("\n")) {
+
+                    nextLeaf.delete()
+                    node.rawInsertAfterMe(PsiWhiteSpaceImpl(" "))
+                }
             }
         }
         return node
