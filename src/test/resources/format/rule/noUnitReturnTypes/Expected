@@ -1,2 +1,0 @@
-fun <A : Unit> foo(unit: Unit) {
-}
