@@ -11,9 +11,14 @@ class SpacingAroundParensRuleTest : RuleTest(
                 "fun foo() { if (true) { } }"
         ),
         RuleTestCase(
-                "should contain space before value parameter list",
+                "should contain no space before value parameter list",
                 "fun foo () { }",
                 "fun foo() { }"
+        ),
+        RuleTestCase(
+                "should contain no space before value argument list",
+                "val a = 0.toInt ()",
+                "val a = 0.toInt()"
         ),
         RuleTestCase(
                 "should not contain space after left paren",
@@ -24,6 +29,16 @@ class SpacingAroundParensRuleTest : RuleTest(
                 "should not contain space before right paren",
                 "fun foo(a: Int ) { }",
                 "fun foo(a: Int) { }"
+        ),
+        RuleTestCase(
+                "should not contain space before left paren after left paren",
+                "fun foo() { if ( (true)) { } }",
+                "fun foo() { if ((true)) { } }"
+        ),
+        RuleTestCase(
+                "should not contain space before right paren before right paren",
+                "fun foo() { if ((true) ) { } }",
+                "fun foo() { if ((true)) { } }"
         ),
         RuleTestCase(
                 "should preserve newlines inside value parameter list",

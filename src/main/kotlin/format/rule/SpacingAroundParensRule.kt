@@ -9,6 +9,8 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtBlockExpression
 import org.jetbrains.kotlin.psi.KtParameterList
+import org.jetbrains.kotlin.psi.KtParenthesizedExpression
+import org.jetbrains.kotlin.psi.KtValueArgumentList
 import org.jetbrains.kotlin.psi.psiUtil.nextLeaf
 import org.jetbrains.kotlin.psi.psiUtil.prevLeaf
 
@@ -20,10 +22,13 @@ class SpacingAroundParensRule : Rule {
 
         if ((isLeftParen || isRightParen) && node is LeafPsiElement) {
             val prevLeaf = node.prevLeaf() as LeafPsiElement
-            val nextLeaf = node.nextLeaf() as LeafPsiElement
+            val nextLeaf = node.nextLeaf() as? LeafPsiElement
+
+            val isChildOfParameterList = node.isChildOfType(KtParameterList::class)
+            val isChildOfValueArgumentList = node.isChildOfType(KtValueArgumentList::class)
 
             val extraSpacingBefore = (isRightParen && prevLeaf is PsiWhiteSpace && !prevLeaf.textContains('\n'))
-                    || (isLeftParen && prevLeaf is PsiWhiteSpace && node.isChildOfType(KtParameterList::class))
+                    || (isLeftParen && prevLeaf is PsiWhiteSpace && (isChildOfParameterList || isChildOfValueArgumentList))
 
             val extraSpacingAfter = isLeftParen
                     && nextLeaf is PsiWhiteSpace
@@ -32,20 +37,16 @@ class SpacingAroundParensRule : Rule {
             val missingSpacingBefore = isLeftParen
                     && prevLeaf !is PsiWhiteSpace
                     && node.isChildOfType(KtBlockExpression::class)
-
-            val missingSpacingAfter = false
+                    && !node.isChildOfType(KtParenthesizedExpression::class)
 
             if (extraSpacingBefore) {
                 prevLeaf.delete()
             }
             if (extraSpacingAfter) {
-                nextLeaf.delete()
+                nextLeaf?.delete()
             }
             if (missingSpacingBefore) {
                 node.rawInsertBeforeMe(PsiWhiteSpaceImpl(" "))
-            }
-            if (missingSpacingAfter) {
-                node.rawInsertAfterMe(PsiWhiteSpaceImpl(" "))
             }
         }
         return node
