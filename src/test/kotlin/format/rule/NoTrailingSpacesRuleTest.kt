@@ -10,5 +10,15 @@ class NoTrailingSpacesRuleTest : RuleTest(
                 "should remove spaces before a newline",
                 loadResource("format/rule/noTrailingSpaces/Case1"),
                 loadResource("format/rule/noTrailingSpaces/Expected")
+        ),
+        RuleTestCase(
+                "should remove spaces before a newline 2",
+                loadResource("format/rule/noTrailingSpaces/Case1"),
+                loadResource("format/rule/noTrailingSpaces/Expected")
+        ),
+        RuleTestCase(
+                "should remove spaces before a newline 3",
+                loadResource("format/rule/noTrailingSpaces/Case1"),
+                loadResource("format/rule/noTrailingSpaces/Expected")
         )
 )
